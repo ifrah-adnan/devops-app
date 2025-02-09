@@ -3,7 +3,7 @@ name: Deploy to Docker Desktop
 on:
   push:
     branches:
-      - main # Exécute le workflow à chaque commit sur main
+      - master # Exécute le workflow à chaque commit sur main
 
 jobs:
   deploy:
