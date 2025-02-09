@@ -1,0 +1,9 @@
+services:
+  app:
+    build: .
+    container_name: tp4-container
+    ports:
+      - "8077:80"
+    volumes:
+      - .:/usr/share/nginx/html
+    restart: always

@@ -21,8 +21,8 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build --no-cache -t adnanifrah/tp2:latest .
-          docker push adnanifrah/tp2:latest
+          docker-compose build
+          docker-compose push
 
       - name: Connect to Docker Desktop
         run: |
@@ -30,18 +30,8 @@ jobs:
 
       - name: Stop and remove old container
         run: |
-          docker stop tp2-container || true
-          docker rm tp2-container || true
-          docker image prune -af  # Nettoyer les anciennes images inutilisées
-
-      - name: Pull latest image
-        run: |
-          docker pull adnanifrah/tp2:latest
-
-      - name: Wait for Docker image to update
-        run: |
-          sleep 10
+          docker-compose down  # Arrête et supprime les conteneurs existants
 
       - name: Run new container
         run: |
-          docker run -d -p 80:80 --name tp2-container adnanifrah/tp2:latest
+          docker-compose up -d  # Démarre le conteneur en mode détaché
