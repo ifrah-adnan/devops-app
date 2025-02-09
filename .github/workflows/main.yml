@@ -18,15 +18,21 @@ jobs:
         with:
           username: adnanifrah
           password: Adnan2001@
+          
+      - name: Build and push Docker image
+        run: |
+          docker build -t adnanifrah/tp2:latest .
+          docker push adnanifrah/tp2:latest
 
-      - name: Build Docker image
-        run: docker build -t adnanifrah/tp2:latest .
+      - name: Connect to Docker Desktop
+        run: |
+          export DOCKER_HOST=tcp://localhost:2375
 
-      - name: Push image to Docker Hub
-        run: docker push adnanifrah/tp2:latest
-
-      - name: Deploy container
+      - name: Remove old container
         run: |
           docker stop tp2-container || true
           docker rm tp2-container || true
+
+      - name: Run new container
+        run: |
           docker run -d -p 80:80 --name tp2-container adnanifrah/tp2:latest
